@@ -186,6 +186,7 @@ add_sample(Resize cpp)
 add_sample(Resources c)
 add_sample(SceneViewer cpp)
 add_sample(Triangle cpp)
+add_sample(VideoEncodeFinalize cpp)
 
 # Wrapper depends on Vulkan SDK availability
 if(DEFINED ENV{VULKAN_SDK})
