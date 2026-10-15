@@ -127,6 +127,7 @@ struct VideoConfig {
     uint8_t h264SpsId = 0;
     uint8_t h264PpsRefIdxL0DefaultActiveMinus1 = 0; // PPS num_ref_idx_l0_default_active_minus1
     uint8_t h264PpsId = 0;
+    uint8_t h265PpsRefIdxDefaultActiveMinus1 = 0; // PPS num_ref_idx_l0/l1_default_active_minus1
     uint8_t h265VpsId = 0;
     uint8_t h265SpsId = 0;
     uint8_t h265PpsId = 0;
@@ -439,6 +440,8 @@ inline CodecParameters MakeCodecParameters(nri::GraphicsAPI graphicsAPI, const V
         params.h265Pps.flags = nri::VideoH265PictureParameterSetBits::CABAC_INIT_PRESENT | nri::VideoH265PictureParameterSetBits::TRANSFORM_SKIP_ENABLED | nri::VideoH265PictureParameterSetBits::CU_QP_DELTA_ENABLED | nri::VideoH265PictureParameterSetBits::SLICE_CHROMA_QP_OFFSETS_PRESENT | nri::VideoH265PictureParameterSetBits::DEBLOCKING_FILTER_CONTROL_PRESENT;
         if (config.h265ListsModification)
             params.h265Pps.flags |= nri::VideoH265PictureParameterSetBits::LISTS_MODIFICATION_PRESENT;
+        params.h265Pps.refIndexL0DefaultActiveMinus1 = config.h265PpsRefIdxDefaultActiveMinus1;
+        params.h265Pps.refIndexL1DefaultActiveMinus1 = config.h265PpsRefIdxDefaultActiveMinus1;
     }
     params.h265Vps.videoParameterSetId = config.h265VpsId;
     params.h265Sps.videoParameterSetId = config.h265VpsId;

@@ -262,6 +262,7 @@ void Sample::InitCmdLine(cmdline::parser& cmdLine) {
     cmdLine.add<std::string>("av1Info", 0, "stream: AV1 decode info source, metadata uses the submitted descriptions only (D3D12)", false, m_Av1InfoArg, cmdline::oneof<std::string>("auto", "header", "metadata"));
     cmdLine.add<std::string>("h264Ids", 0, "stream: H.264 SPS,PPS ids", false, m_H264IdsArg);
     cmdLine.add<uint32_t>("h264PpsRefs", 0, "stream: H.264 PPS num_ref_idx_l0_default_active_minus1", false, 0);
+    cmdLine.add<uint32_t>("h265PpsRefs", 0, "stream: H.265 PPS num_ref_idx_l0/l1_default_active_minus1", false, 0);
     cmdLine.add<uint32_t>("codedAlign", 0, "stream: minimum alignment of the coded size", false, 1);
     cmdLine.add<uint32_t>("qpMin", 0, "stream: CBR/VBR QP range minimum", false, 0);
     cmdLine.add<uint32_t>("qpMax", 0, "stream: CBR/VBR QP range maximum", false, 0);
@@ -340,6 +341,7 @@ void Sample::ReadCmdLine(cmdline::parser& cmdLine) {
     options.config.reverseDecodeReferences = !cmdLine.exist("noReverseDecodeRefs");
     options.config.codedAlignment = std::max(cmdLine.get<uint32_t>("codedAlign"), 1u);
     options.config.h264PpsRefIdxL0DefaultActiveMinus1 = (uint8_t)cmdLine.get<uint32_t>("h264PpsRefs");
+    options.config.h265PpsRefIdxDefaultActiveMinus1 = (uint8_t)cmdLine.get<uint32_t>("h265PpsRefs");
     const std::string decodeDpb = cmdLine.get<std::string>("decodeDpb");
     options.config.decodeDpb = decodeDpb == "coincide" ? video_sample::DecodeDpbMode::COINCIDE : (decodeDpb == "distinct" ? video_sample::DecodeDpbMode::DISTINCT : video_sample::DecodeDpbMode::AUTO);
     const std::string dpbLayout = cmdLine.get<std::string>("dpbLayout");
